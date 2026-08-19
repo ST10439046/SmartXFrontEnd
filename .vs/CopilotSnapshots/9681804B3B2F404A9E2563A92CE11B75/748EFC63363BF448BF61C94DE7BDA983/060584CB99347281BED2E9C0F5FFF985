@@ -1,0 +1,119 @@
+﻿import axios from 'axios';
+
+const API_BASE_URL = 'http://localhost:5231';
+
+// Create axios instance
+const apiClient = axios.create({
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Request interceptor
+apiClient.interceptors.request.use(
+  (config) => {
+    // Add any auth tokens if needed
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// Response interceptor
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error('API Error:', error.response?.data || error.message);
+    return Promise.reject(error);
+  }
+);
+
+// Generic TelemetryPacket structure matching C# backend
+export const createTelemetryPacket = (data, metadata = {}) => ({
+  timestamp: new Date().toISOString(),
+  data,
+  metadata: {
+    version: '1.0',
+    source: 'web-frontend',
+    ...metadata,
+  },
+});
+
+// Sensor Registration API calls
+export const sensorApi = {
+  registerSensor: async (sensorData) => {
+    const packet = createTelemetryPacket(sensorData, {
+      action: 'sensor_registration',
+    });
+    return apiClient.post('/api/sensors/register', packet);
+  },
+
+  uploadSensorFile: async (sensorId, file, fileType = 'config') => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('sensorId', sensorId);
+    formData.append('fileType', fileType);
+    formData.append('timestamp', new Date().toISOString());
+
+    return apiClient.post('/api/sensors/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      onUploadProgress: (progressEvent) => {
+        const percentCompleted = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
+        return percentCompleted;
+      },
+    });
+  },
+
+  getSensorList: async () => {
+    return apiClient.get('/api/sensors');
+  },
+
+  getSensorById: async (sensorId) => {
+    return apiClient.get(`/api/sensors/${sensorId}`);
+  },
+
+  updateSensor: async (sensorId, sensorData) => {
+    const packet = createTelemetryPacket(sensorData, {
+      action: 'sensor_update',
+      sensorId,
+    });
+    return apiClient.put(`/api/sensors/${sensorId}`, packet);
+  },
+};
+
+// Telemetry API calls
+export const telemetryApi = {
+  getRealtimeTelemetry: async (sensorId) => {
+    return apiClient.get(`/api/telemetry/${sensorId}`);
+  },
+
+  getTelemetryHistory: async (sensorId, limit = 100) => {
+    return apiClient.get(`/api/telemetry/${sensorId}/history`, {
+      params: { limit },
+    });
+  },
+
+  submitTelemetry: async (sensorId, telemetryData) => {
+    const packet = createTelemetryPacket(telemetryData, {
+      sensorId,
+      action: 'telemetry_submit',
+    });
+    return apiClient.post('/api/telemetry/submit', packet);
+  },
+};
+
+// Health check
+export const healthCheck = async () => {
+  try {
+    return await apiClient.get('/health');
+  } catch (error) {
+    console.error('Backend health check failed:', error);
+    return null;
+  }
+};
+
+export default apiClient;

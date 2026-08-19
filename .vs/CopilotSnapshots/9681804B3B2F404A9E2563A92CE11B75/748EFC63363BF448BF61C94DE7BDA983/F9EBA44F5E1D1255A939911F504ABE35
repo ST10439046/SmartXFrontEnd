@@ -1,0 +1,324 @@
+﻿import React, { useState, useEffect } from 'react';
+import { TrendingUp, AlertCircle, Zap, Wifi, WifiOff, Loader } from 'lucide-react';
+import { sensorApi, telemetryApi, alertApi } from '../services/apiClient';
+import { useNotification } from '../hooks';
+
+const SensorCard = ({ sensor, telemetry, isConnected }) => {
+  const currentValue = telemetry?.value || 0;
+  const unit = telemetry?.unit || '';
+
+  return (
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border-l-4 border-primary-500">
+      <div className="flex items-start justify-between mb-4">
+        <div>
+          <h3 className="font-bold text-gray-900 dark:text-white">
+            {sensor.sensorName}
+          </h3>
+          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+            MAC: {sensor.macAddress}
+          </p>
+          <p className="text-xs text-gray-600 dark:text-gray-400">
+            {sensor.location} • {sensor.category}
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          {isConnected ? (
+            <Wifi size={18} className="text-success-500" />
+          ) : (
+            <WifiOff size={18} className="text-danger-500" />
+          )}
+          <span className="text-xs font-medium">
+            {isConnected ? (
+              <span className="text-success-600 dark:text-success-400">Online</span>
+            ) : (
+              <span className="text-danger-600 dark:text-danger-400">Offline</span>
+            )}
+          </span>
+        </div>
+      </div>
+
+      <div className="space-y-3">
+        {/* Current Value */}
+        <div>
+          <p className="text-2xl font-bold text-gray-900 dark:text-white">
+            {currentValue}
+            <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">
+              {unit}
+            </span>
+          </p>
+        </div>
+
+        {/* Last Update */}
+        <p className="text-xs text-gray-500 dark:text-gray-400">
+          Last updated: {telemetry?.timestamp
+            ? new Date(telemetry.timestamp).toLocaleTimeString()
+            : 'N/A'}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+const TelemetryAlertCard = ({ alert }) => {
+  const severityConfig = {
+    info: {
+      bgColor: 'bg-primary-50 dark:bg-primary-900/20',
+      borderColor: 'border-primary-300 dark:border-primary-700',
+      textColor: 'text-primary-800 dark:text-primary-200',
+      icon: 'ℹ️',
+    },
+    warning: {
+      bgColor: 'bg-warning-50 dark:bg-warning-900/20',
+      borderColor: 'border-warning-300 dark:border-warning-700',
+      textColor: 'text-warning-800 dark:text-warning-200',
+      icon: '⚠️',
+    },
+    critical: {
+      bgColor: 'bg-danger-50 dark:bg-danger-900/20',
+      borderColor: 'border-danger-300 dark:border-danger-700',
+      textColor: 'text-danger-800 dark:text-danger-200',
+      icon: '🚨',
+    },
+  };
+
+  const severity = alert.severity?.toLowerCase() || 'info';
+  const config = severityConfig[severity] || severityConfig.info;
+
+  return (
+    <div
+      className={`${config.bgColor} border ${config.borderColor} ${config.textColor} rounded-lg p-4 mb-3`}
+    >
+      <div className="flex items-start gap-3">
+        <span className="text-lg">{config.icon}</span>
+        <div className="flex-1">
+          <p className="font-medium text-sm">{alert.alertMessage || alert.description}</p>
+          <p className="text-xs mt-1 opacity-75">{new Date(alert.alertDate).toLocaleString()}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const TelemetryDashboard = () => {
+  const [sensors, setSensors] = useState([]);
+  const [telemetryData, setTelemetryData] = useState({});
+  const [alerts, setAlerts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { show } = useNotification();
+
+  // Fetch data from backend
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        // Fetch sensors
+        const sensorsResponse = await sensorApi.getAllSensors();
+        const sensorsData = Array.isArray(sensorsResponse.data)
+          ? sensorsResponse.data
+          : [];
+        setSensors(sensorsData);
+
+        // Fetch telemetry data
+        if (sensorsData.length > 0) {
+          const telemetryResponse = await telemetryApi.getAllTelemetry();
+          const telemetryArray = Array.isArray(telemetryResponse.data)
+            ? telemetryResponse.data
+            : [];
+
+          // Group telemetry by sensor MAC
+          const telemetryByMac = {};
+          telemetryArray.forEach((telemetry) => {
+            if (telemetry.sensorMacAddress) {
+              if (
+                !telemetryByMac[telemetry.sensorMacAddress] ||
+                new Date(telemetry.timestamp) >
+                  new Date(telemetryByMac[telemetry.sensorMacAddress].timestamp)
+              ) {
+                telemetryByMac[telemetry.sensorMacAddress] = telemetry;
+              }
+            }
+          });
+
+          setTelemetryData(telemetryByMac);
+        }
+
+        // Fetch alerts
+        const alertsResponse = await alertApi.getAllAlerts();
+        const alertsData = Array.isArray(alertsResponse.data)
+          ? alertsResponse.data.slice(0, 5) // Show top 5 alerts
+          : [];
+        setAlerts(alertsData);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        setError('Failed to load data from backend');
+        show('Failed to load sensor data', 'error');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+
+    // Refresh data every 10 seconds
+    const interval = setInterval(fetchData, 10000);
+    return () => clearInterval(interval);
+  }, [show]);
+
+  if (loading && sensors.length === 0) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <Loader size={40} className="mx-auto text-primary-600 mb-4 animate-spin" />
+          <p className="text-gray-600 dark:text-gray-400">Loading sensor data...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const onlineSensors = sensors.filter((s) => s.isActive).length;
+  const offlineSensors = sensors.length - onlineSensors;
+
+  return (
+    <div className="space-y-8">
+      {/* Header */}
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          Real-time Visual Telemetry Feedback
+        </h1>
+        <p className="text-gray-600 dark:text-gray-400">
+          Monitor live sensor data from your database, receive instant alerts for anomalies, and
+          visualize network status in real-time.
+        </p>
+      </div>
+
+      {/* Stats Bar */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400">Total Sensors</p>
+          <p className="text-3xl font-bold text-gray-900 dark:text-white mt-1">
+            {sensors.length}
+          </p>
+        </div>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400">Active</p>
+          <p className="text-3xl font-bold text-success-600 dark:text-success-400 mt-1">
+            {onlineSensors}
+          </p>
+        </div>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400">Inactive</p>
+          <p className="text-3xl font-bold text-danger-600 dark:text-danger-400 mt-1">
+            {offlineSensors}
+          </p>
+        </div>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400">Active Alerts</p>
+          <p className="text-3xl font-bold text-warning-600 dark:text-warning-400 mt-1">
+            {alerts.length}
+          </p>
+        </div>
+      </div>
+
+      {error && (
+        <div className="bg-danger-50 dark:bg-danger-900/20 border border-danger-300 dark:border-danger-700 text-danger-800 dark:text-danger-200 rounded-lg p-4 flex items-center gap-3">
+          <AlertCircle size={20} />
+          <p>{error}</p>
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Sensors Grid */}
+        <div className="lg:col-span-2">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+            Connected Sensors ({sensors.length})
+          </h2>
+          {sensors.length === 0 ? (
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-8 text-center">
+              <p className="text-gray-600 dark:text-gray-400">
+                No sensors found. Register a new sensor to get started.
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {sensors.map((sensor) => (
+                <SensorCard
+                  key={sensor.macAddress}
+                  sensor={sensor}
+                  telemetry={telemetryData[sensor.macAddress]}
+                  isConnected={sensor.isActive}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Alerts Panel */}
+        <div>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+            Alerts & Notifications
+          </h2>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
+            {alerts.length > 0 ? (
+              <div>
+                {alerts.map((alert) => (
+                  <TelemetryAlertCard key={alert.id} alert={alert} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <Zap
+                  size={32}
+                  className="mx-auto text-success-400 mb-2 opacity-50"
+                />
+                <p className="text-gray-600 dark:text-gray-400">
+                  All systems operating normally
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Network Status */}
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 mt-4">
+            <h3 className="font-bold text-gray-900 dark:text-white mb-3">
+              System Status
+            </h3>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-700 dark:text-gray-300">
+                  Backend API
+                </span>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-success-500 rounded-full animate-pulse"></div>
+                  <span className="text-xs font-medium text-success-600 dark:text-success-400">
+                    Connected
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-700 dark:text-gray-300">
+                  Sensors
+                </span>
+                <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
+                  {onlineSensors}/{sensors.length} active
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-700 dark:text-gray-300">
+                  Last Sync
+                </span>
+                <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
+                  Just now
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default TelemetryDashboard;

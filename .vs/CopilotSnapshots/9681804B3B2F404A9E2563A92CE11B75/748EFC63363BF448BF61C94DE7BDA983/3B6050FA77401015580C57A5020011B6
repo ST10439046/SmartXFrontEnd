@@ -1,0 +1,344 @@
+﻿import React, { useState, useEffect } from 'react';
+import { TrendingUp, AlertCircle, Zap, Wifi, WifiOff } from 'lucide-react';
+
+const SensorCard = ({ sensor, isConnected }) => {
+  return (
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border-l-4 border-primary-500">
+      <div className="flex items-start justify-between mb-4">
+        <div>
+          <h3 className="font-bold text-gray-900 dark:text-white">
+            {sensor.name}
+          </h3>
+          <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+            {sensor.location} • {sensor.category}
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          {isConnected ? (
+            <Wifi size={18} className="text-success-500" />
+          ) : (
+            <WifiOff size={18} className="text-danger-500" />
+          )}
+          <span className="text-xs font-medium">
+            {isConnected ? (
+              <span className="text-success-600 dark:text-success-400">Online</span>
+            ) : (
+              <span className="text-danger-600 dark:text-danger-400">Offline</span>
+            )}
+          </span>
+        </div>
+      </div>
+
+      <div className="space-y-3">
+        {/* Current Value */}
+        <div>
+          <p className="text-2xl font-bold text-gray-900 dark:text-white">
+            {sensor.currentValue}
+            <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">
+              {sensor.unit}
+            </span>
+          </p>
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-2 text-center">
+          <div className="bg-gray-50 dark:bg-gray-700/50 p-2 rounded">
+            <p className="text-xs text-gray-600 dark:text-gray-400">Min</p>
+            <p className="font-semibold text-gray-900 dark:text-white">
+              {sensor.minValue}
+            </p>
+          </div>
+          <div className="bg-gray-50 dark:bg-gray-700/50 p-2 rounded">
+            <p className="text-xs text-gray-600 dark:text-gray-400">Avg</p>
+            <p className="font-semibold text-gray-900 dark:text-white">
+              {sensor.avgValue}
+            </p>
+          </div>
+          <div className="bg-gray-50 dark:bg-gray-700/50 p-2 rounded">
+            <p className="text-xs text-gray-600 dark:text-gray-400">Max</p>
+            <p className="font-semibold text-gray-900 dark:text-white">
+              {sensor.maxValue}
+            </p>
+          </div>
+        </div>
+
+        {/* Trend */}
+        <div className="flex items-center gap-2">
+          <TrendingUp size={16} className="text-success-500" />
+          <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+            +{sensor.trend}% last hour
+          </span>
+        </div>
+
+        {/* Last Update */}
+        <p className="text-xs text-gray-500 dark:text-gray-400">
+          Last updated: {sensor.lastUpdate}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+const TelemetryAlertCard = ({ alert }) => {
+  const severityConfig = {
+    info: {
+      bgColor: 'bg-primary-50 dark:bg-primary-900/20',
+      borderColor: 'border-primary-300 dark:border-primary-700',
+      textColor: 'text-primary-800 dark:text-primary-200',
+      icon: 'ℹ️',
+    },
+    warning: {
+      bgColor: 'bg-warning-50 dark:bg-warning-900/20',
+      borderColor: 'border-warning-300 dark:border-warning-700',
+      textColor: 'text-warning-800 dark:text-warning-200',
+      icon: '⚠️',
+    },
+    critical: {
+      bgColor: 'bg-danger-50 dark:bg-danger-900/20',
+      borderColor: 'border-danger-300 dark:border-danger-700',
+      textColor: 'text-danger-800 dark:text-danger-200',
+      icon: '🚨',
+    },
+  };
+
+  const config = severityConfig[alert.severity] || severityConfig.info;
+
+  return (
+    <div
+      className={`${config.bgColor} border ${config.borderColor} ${config.textColor} rounded-lg p-4 mb-3`}
+    >
+      <div className="flex items-start gap-3">
+        <span className="text-lg">{config.icon}</span>
+        <div className="flex-1">
+          <p className="font-medium text-sm">{alert.message}</p>
+          <p className="text-xs mt-1 opacity-75">{alert.sensor}</p>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const TelemetryDashboard = () => {
+  const [sensors, setSensors] = useState([
+    {
+      id: 1,
+      name: 'Kitchen Temp Sensor',
+      location: 'Kitchen',
+      category: 'Environmental',
+      currentValue: 23.5,
+      unit: '°C',
+      minValue: 18.2,
+      avgValue: 22.1,
+      maxValue: 28.3,
+      trend: 5,
+      lastUpdate: '2 min ago',
+      isConnected: true,
+    },
+    {
+      id: 2,
+      name: 'Living Room Humidity',
+      location: 'Living Room',
+      category: 'Environmental',
+      currentValue: 45,
+      unit: '%',
+      minValue: 35,
+      avgValue: 40,
+      maxValue: 55,
+      trend: -2,
+      lastUpdate: '1 min ago',
+      isConnected: true,
+    },
+    {
+      id: 3,
+      name: 'Power Meter - Main',
+      location: 'Basement',
+      category: 'Power Consumption',
+      currentValue: 3.2,
+      unit: 'kW',
+      minValue: 0.5,
+      avgValue: 2.1,
+      maxValue: 5.8,
+      trend: 12,
+      lastUpdate: '5 min ago',
+      isConnected: false,
+    },
+    {
+      id: 4,
+      name: 'HVAC Controller',
+      location: 'Central',
+      category: 'Actuator',
+      currentValue: 45,
+      unit: '%',
+      minValue: 0,
+      avgValue: 30,
+      maxValue: 100,
+      trend: 3,
+      lastUpdate: '10 sec ago',
+      isConnected: true,
+    },
+  ]);
+
+  const [alerts, setAlerts] = useState([
+    {
+      id: 1,
+      severity: 'critical',
+      message: 'Power Meter - Main offline for 15 minutes',
+      sensor: 'Basement Power Meter',
+    },
+    {
+      id: 2,
+      severity: 'warning',
+      message: 'Temperature in Kitchen exceeding normal range',
+      sensor: 'Kitchen Temp Sensor',
+    },
+    {
+      id: 3,
+      severity: 'info',
+      message: '5 new sensors registered today',
+      sensor: 'System',
+    },
+  ]);
+
+  // Simulate real-time updates
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSensors((prev) =>
+        prev.map((sensor) => ({
+          ...sensor,
+          currentValue: (
+            parseFloat(sensor.currentValue) +
+            (Math.random() - 0.5) * 2
+          ).toFixed(1),
+          lastUpdate: 'just now',
+        }))
+      );
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="space-y-8">
+      {/* Header */}
+      <div>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+          Real-time Visual Telemetry Feedback
+        </h1>
+        <p className="text-gray-600 dark:text-gray-400">
+          Monitor live sensor data, receive instant alerts for anomalies, and
+          visualize network status in real-time.
+        </p>
+      </div>
+
+      {/* Stats Bar */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400">Total Sensors</p>
+          <p className="text-3xl font-bold text-gray-900 dark:text-white mt-1">
+            {sensors.length}
+          </p>
+        </div>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400">Online</p>
+          <p className="text-3xl font-bold text-success-600 dark:text-success-400 mt-1">
+            {sensors.filter((s) => s.isConnected).length}
+          </p>
+        </div>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400">Offline</p>
+          <p className="text-3xl font-bold text-danger-600 dark:text-danger-400 mt-1">
+            {sensors.filter((s) => !s.isConnected).length}
+          </p>
+        </div>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400">Active Alerts</p>
+          <p className="text-3xl font-bold text-warning-600 dark:text-warning-400 mt-1">
+            {alerts.length}
+          </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Sensors Grid */}
+        <div className="lg:col-span-2">
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+            Connected Sensors
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {sensors.map((sensor) => (
+              <SensorCard
+                key={sensor.id}
+                sensor={sensor}
+                isConnected={sensor.isConnected}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Alerts Panel */}
+        <div>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+            Alerts & Notifications
+          </h2>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4">
+            {alerts.length > 0 ? (
+              <div>
+                {alerts.map((alert) => (
+                  <TelemetryAlertCard key={alert.id} alert={alert} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <Zap
+                  size={32}
+                  className="mx-auto text-success-400 mb-2 opacity-50"
+                />
+                <p className="text-gray-600 dark:text-gray-400">
+                  All systems operating normally
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Network Status */}
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 mt-4">
+            <h3 className="font-bold text-gray-900 dark:text-white mb-3">
+              Network Status
+            </h3>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-700 dark:text-gray-300">
+                  API Connected
+                </span>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-success-500 rounded-full animate-pulse"></div>
+                  <span className="text-xs font-medium text-success-600 dark:text-success-400">
+                    Active
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-700 dark:text-gray-300">
+                  Data Throughput
+                </span>
+                <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
+                  2.3 MB/s
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm text-gray-700 dark:text-gray-300">
+                  Uptime
+                </span>
+                <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
+                  99.8%
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default TelemetryDashboard;
