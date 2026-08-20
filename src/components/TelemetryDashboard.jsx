@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
-import { AlertCircle, Zap, Wifi, WifiOff, Loader } from 'lucide-react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { AlertCircle, Zap, Wifi, WifiOff, Loader, Play, Square } from 'lucide-react';
 import { sensorApi, telemetryApi, alertApi } from '../services/apiClient';
 import { useNotification } from '../hooks';
 
-const SensorCard = ({ sensor, telemetry, isConnected }) => {
+const SensorCard = ({ sensor, telemetry, isConnected, onCardClick }) => {
     // Use API telemetry first.
     // If no separate telemetry exists, use telemetry embedded in the sensor.
     const embeddedTelemetry =
@@ -15,15 +16,34 @@ const SensorCard = ({ sensor, telemetry, isConnected }) => {
     const currentTelemetry = telemetry || embeddedTelemetry;
 
     const currentValue =
+        currentTelemetry?.dataValue ??
         currentTelemetry?.value ??
         currentTelemetry?.reading ??
         currentTelemetry?.measurement ??
         0;
 
-    const unit = currentTelemetry?.unit ?? '';
+    const displayValue =
+        currentTelemetry?.dataType === 'valveState'
+            ? Number(currentValue) === 1
+                ? 'Open'
+                : 'Closed'
+            : currentValue;
+
+    const unit =
+        currentTelemetry?.unit ??
+        (currentTelemetry?.dataType === 'temperature'
+            ? '°C'
+            : currentTelemetry?.dataType === 'powerWattage'
+                ? 'W'
+                : currentTelemetry?.dataType === 'valveState'
+                    ? ''
+                    : '');
 
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border-l-4 border-primary-500">
+        <button
+            onClick={() => onCardClick(sensor.macaddress)}
+            className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border-l-4 border-primary-500 hover:shadow-lg hover:scale-105 transition-all duration-200 text-left"
+        >
             {/* Sensor Header */}
             <div className="flex items-start justify-between mb-4">
                 <div>
@@ -74,7 +94,7 @@ const SensorCard = ({ sensor, telemetry, isConnected }) => {
                     </p>
 
                     <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                        {currentValue}
+                        {displayValue}
 
                         {unit && (
                             <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">
@@ -124,7 +144,7 @@ const SensorCard = ({ sensor, telemetry, isConnected }) => {
                     </p>
                 )}
             </div>
-        </div>
+        </button>
     );
 };
 
@@ -177,124 +197,210 @@ const TelemetryAlertCard = ({ alert }) => {
 };
 
 const TelemetryDashboard = () => {
+    const navigate = useNavigate();
     const [sensors, setSensors] = useState([]);
     const [telemetryData, setTelemetryData] = useState({});
     const [alerts, setAlerts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isSimulating, setIsSimulating] = useState(false);
+    const simulationRef = useRef(null);
 
     const { show } = useNotification();
 
-    useEffect(() => {
-        const fetchData = async () => {
+    const fetchData = useCallback(async () => {
+        try {
+            setLoading(true);
+            setError(null);
+
+            // ============================================
+            // FETCH SENSORS
+            // ============================================
+
+            const sensorsResponse = await sensorApi.getAllSensors();
+
+            const sensorsData = Array.isArray(sensorsResponse.data)
+                ? sensorsResponse.data
+                : [];
+
+            setSensors(sensorsData);
+
+            // ============================================
+            // FETCH TELEMETRY
+            // ============================================
+
             try {
-                setLoading(true);
-                setError(null);
+                const telemetryResponse =
+                    await telemetryApi.getAllTelemetry();
 
-                // ============================================
-                // FETCH SENSORS
-                // ============================================
-
-                const sensorsResponse = await sensorApi.getAllSensors();
-
-                const sensorsData = Array.isArray(sensorsResponse.data)
-                    ? sensorsResponse.data
+                const telemetryArray = Array.isArray(
+                    telemetryResponse.data
+                )
+                    ? telemetryResponse.data
                     : [];
 
-                setSensors(sensorsData);
+                const telemetryByMac = {};
 
-                // ============================================
-                // FETCH TELEMETRY
-                // ============================================
+                telemetryArray.forEach((telemetry) => {
+                    const mac =
+                        telemetry.sensorMac ||
+                        telemetry.sensorMacAddress ||
+                        telemetry.macaddress ||
+                        telemetry.macAddress;
 
-                try {
-                    const telemetryResponse =
-                        await telemetryApi.getAllTelemetry();
+                    if (!mac) {
+                        return;
+                    }
 
-                    const telemetryArray = Array.isArray(
-                        telemetryResponse.data
-                    )
-                        ? telemetryResponse.data
-                        : [];
+                    if (
+                        !telemetryByMac[mac] ||
+                        new Date(telemetry.timestamp) >
+                        new Date(
+                            telemetryByMac[mac].timestamp
+                        )
+                    ) {
+                        telemetryByMac[mac] = telemetry;
+                    }
+                });
 
-                    const telemetryByMac = {};
-
-                    telemetryArray.forEach((telemetry) => {
-                        // Support both possible property names
-                        const mac =
-                            telemetry.sensorMacAddress ||
-                            telemetry.macaddress ||
-                            telemetry.macAddress;
-
-                        if (!mac) {
-                            return;
-                        }
-
-                        // Keep only the newest telemetry reading
-                        if (
-                            !telemetryByMac[mac] ||
-                            new Date(telemetry.timestamp) >
-                            new Date(
-                                telemetryByMac[mac].timestamp
-                            )
-                        ) {
-                            telemetryByMac[mac] = telemetry;
-                        }
-                    });
-
-                    setTelemetryData(telemetryByMac);
-                } catch (telemetryError) {
-                    console.warn(
-                        'Could not fetch telemetry:',
-                        telemetryError
-                    );
-
-                    // Don't fail the whole dashboard if telemetry
-                    // endpoint is unavailable.
-                    setTelemetryData({});
-                }
-
-                // ============================================
-                // FETCH ALERTS
-                // ============================================
-
-                try {
-                    const alertsResponse = await alertApi.getAllAlerts();
-
-                    const alertsData = Array.isArray(alertsResponse.data)
-                        ? alertsResponse.data.slice(0, 5)
-                        : [];
-
-                    setAlerts(alertsData);
-                } catch (alertError) {
-                    console.warn(
-                        'Could not fetch alerts:',
-                        alertError
-                    );
-
-                    setAlerts([]);
-                }
-            } catch (err) {
-                console.error('Error fetching sensor data:', err);
-
-                setError('Failed to load data from backend');
-
-                show(
-                    'Failed to load sensor data',
-                    'error'
+                setTelemetryData(telemetryByMac);
+            } catch (telemetryError) {
+                console.warn(
+                    'Could not fetch telemetry:',
+                    telemetryError
                 );
-            } finally {
-                setLoading(false);
+
+                setTelemetryData({});
+            }
+
+            // ============================================
+            // FETCH ALERTS
+            // ============================================
+
+            try {
+                const alertsResponse = await alertApi.getAllAlerts();
+
+                const alertsData = Array.isArray(alertsResponse.data)
+                    ? alertsResponse.data.slice(0, 5)
+                    : [];
+
+                setAlerts(alertsData);
+            } catch (alertError) {
+                console.warn(
+                    'Could not fetch alerts:',
+                    alertError
+                );
+
+                setAlerts([]);
+            }
+        } catch (err) {
+            console.error('Error fetching sensor data:', err);
+
+            setError('Failed to load data from backend');
+
+            show('Failed to load sensor data', 'error');
+        } finally {
+            setLoading(false);
+        }
+    }, [show]);
+
+    useEffect(() => {
+        const loadData = () => {
+            void fetchData();
+        };
+
+        const timer = window.setTimeout(loadData, 0);
+        const interval = setInterval(loadData, 10000);
+
+        return () => {
+            clearTimeout(timer);
+            clearInterval(interval);
+        };
+    }, [fetchData]);
+
+    useEffect(() => {
+        return () => {
+            if (simulationRef.current) {
+                clearInterval(simulationRef.current);
+            }
+        };
+    }, []);
+
+    const createSimulationPayload = (sensor) => {
+        const mac = sensor.macaddress;
+        const category = (sensor.category || '').toLowerCase();
+        const timestamp = new Date().toISOString();
+
+        if (mac === '00:1A:2B:3C:4D:5E' || category.includes('environment')) {
+            const temperature = 22 + Math.random() * 8;
+            return {
+                sensorMac: mac,
+                dataType: 'temperature',
+                dataValue: Number(temperature.toFixed(1)),
+                timestamp,
+            };
+        }
+
+        if (mac === '00:1A:2B:3C:4D:5F' || category.includes('power')) {
+            const watts = 320 + Math.random() * 180;
+            return {
+                sensorMac: mac,
+                dataType: 'powerWattage',
+                dataValue: Math.round(watts),
+                timestamp,
+            };
+        }
+
+        if (mac === '00:1A:2B:3C:4D:60' || category.includes('actuator')) {
+            return {
+                sensorMac: mac,
+                dataType: 'valveState',
+                dataValue: Math.random() > 0.5 ? 1 : 0,
+                timestamp,
+            };
+        }
+
+        return {
+            sensorMac: mac,
+            dataType: 'reading',
+            dataValue: Number((Math.random() * 100).toFixed(2)),
+            timestamp,
+        };
+    };
+
+    const startSimulation = async () => {
+        if (simulationRef.current || sensors.length === 0) {
+            return;
+        }
+
+        setIsSimulating(true);
+
+        const tick = async () => {
+            const randomSensor = sensors[Math.floor(Math.random() * sensors.length)];
+
+            if (!randomSensor) return;
+
+            try {
+                await telemetryApi.createTelemetry(createSimulationPayload(randomSensor));
+                await fetchData();
+            } catch (error) {
+                console.error('Simulation failed:', error);
+                show('Telemetry simulation failed', 'error');
             }
         };
 
-        fetchData();
+        await tick();
+        simulationRef.current = setInterval(tick, 2000);
+    };
 
-        // Refresh every 10 seconds
-        const interval = setInterval(fetchData, 10000);
+    const stopSimulation = () => {
+        if (simulationRef.current) {
+            clearInterval(simulationRef.current);
+            simulationRef.current = null;
+        }
 
-        return () => clearInterval(interval);
-    }, [show]);
+        setIsSimulating(false);
+    };
 
     // ============================================
     // DETERMINE SENSOR CONNECTION STATUS
@@ -388,16 +494,31 @@ const TelemetryDashboard = () => {
         <div className="space-y-8">
 
             {/* Header */}
-            <div>
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                    Real-time Visual Telemetry Feedback
-                </h1>
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                        Real-time Visual Telemetry Feedback
+                    </h1>
 
-                <p className="text-gray-600 dark:text-gray-400">
-                    Monitor live sensor data from your database,
-                    receive instant alerts for anomalies, and
-                    visualize network status in real-time.
-                </p>
+                    <p className="text-gray-600 dark:text-gray-400">
+                        Monitor live sensor data from your database,
+                        receive instant alerts for anomalies, and
+                        visualize network status in real-time.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    onClick={isSimulating ? stopSimulation : startSimulation}
+                    className={`inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 font-medium transition ${
+                        isSimulating
+                            ? 'bg-danger-600 text-white hover:bg-danger-700'
+                            : 'bg-primary-600 text-white hover:bg-primary-700'
+                    }`}
+                >
+                    {isSimulating ? <Square size={16} /> : <Play size={16} />}
+                    {isSimulating ? 'Stop Simulation' : 'Start Simulation'}
+                </button>
             </div>
 
             {/* Stats Bar */}
@@ -492,6 +613,7 @@ const TelemetryDashboard = () => {
                                     isConnected={isSensorOnline(
                                         sensor
                                     )}
+                                    onCardClick={(mac) => navigate(`/sensor/${encodeURIComponent(mac)}`)}
                                 />
                             ))}
 
