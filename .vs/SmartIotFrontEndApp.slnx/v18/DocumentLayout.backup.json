@@ -3,6 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Shuayb\\.copilot\\plans\\plan-create-sensor-details-page-with-click-navigation.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}|MarkdownSecurePreview"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\src\\app.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:src\\app.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Shuayb\\.copilot\\plans\\plan-sensor-overview-simulation-and-sample-telemetry.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}|MarkdownSecurePreview"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\.env.example||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:.env.example||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\src\\services\\apiclient.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:src\\services\\apiclient.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\src\\pages\\dashboardpage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:src\\pages\\dashboardpage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\src\\hooks\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:src\\hooks\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\src\\components\\telemetrydashboard.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:src\\components\\telemetrydashboard.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\integration_complete.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
       "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:integration_complete.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
     },
@@ -23,14 +53,6 @@
       "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:src\\index.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\src\\services\\apiclient.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:src\\services\\apiclient.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\src\\hooks\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:src\\hooks\\index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\src\\components\\toast.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:src\\components\\toast.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
@@ -47,24 +69,12 @@
       "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:src\\components\\sensorregistrationform.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\src\\components\\telemetrydashboard.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:src\\components\\telemetrydashboard.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\src\\pages\\dashboardpage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:src\\pages\\dashboardpage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\src\\components\\tabs.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:src\\components\\tabs.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\src\\pages\\comingsoonpage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:src\\pages\\comingsoonpage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\src\\app.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:src\\app.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Shuayb\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\523480483\\App.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
@@ -80,10 +90,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\setup_guide.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
       "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:setup_guide.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\.env.example||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:.env.example||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\implementation_summary.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
@@ -132,6 +138,13 @@
     {
       "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\status.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}",
       "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:status.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Shuayb\\source\\repos\\SmartIotApi\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|c:\\users\\shuayb\\source\\repos\\smartiotfrontendapp\\src\\pages\\sensordetailspage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{AD977C68-40CB-5BD5-28DE-1F26A957ABD8}|smartiotfrontendapp.esproj|solutionrelative:src\\pages\\sensordetailspage.jsx||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     }
   ],
   "DocumentGroupContainers": [
@@ -141,11 +154,75 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 0,
+              "Title": "plan-create-sensor-details-page-with-click-navigation.md [Preview]",
+              "DocumentMoniker": "C:\\Users\\Shuayb\\.copilot\\plans\\plan-create-sensor-details-page-with-click-navigation.md",
+              "RelativeDocumentMoniker": "..\\..\\..\\.copilot\\plans\\plan-create-sensor-details-page-with-click-navigation.md",
+              "ToolTip": "C:\\Users\\Shuayb\\.copilot\\plans\\plan-create-sensor-details-page-with-click-navigation.md [Preview]",
+              "RelativeToolTip": "..\\..\\..\\.copilot\\plans\\plan-create-sensor-details-page-with-click-navigation.md [Preview]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2026-08-20T14:26:32.865Z",
+              "EditorCaption": " [Preview]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "SensorDetailsPage.jsx",
+              "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\pages\\SensorDetailsPage.jsx",
+              "RelativeDocumentMoniker": "src\\pages\\SensorDetailsPage.jsx",
+              "ToolTip": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\pages\\SensorDetailsPage.jsx",
+              "RelativeToolTip": "src\\pages\\SensorDetailsPage.jsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAF0BAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
+              "WhenOpened": "2026-08-20T14:24:33.497Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotApi\\Program.cs",
+              "RelativeDocumentMoniker": "..\\SmartIotApi\\Program.cs",
+              "ToolTip": "C:\\Users\\Shuayb\\source\\repos\\SmartIotApi\\Program.cs",
+              "RelativeToolTip": "..\\SmartIotApi\\Program.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAIBZwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-20T11:18:10.389Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "plan-sensor-overview-simulation-and-sample-telemetry.md [Preview]",
+              "DocumentMoniker": "C:\\Users\\Shuayb\\.copilot\\plans\\plan-sensor-overview-simulation-and-sample-telemetry.md",
+              "RelativeDocumentMoniker": "..\\..\\..\\.copilot\\plans\\plan-sensor-overview-simulation-and-sample-telemetry.md",
+              "ToolTip": "C:\\Users\\Shuayb\\.copilot\\plans\\plan-sensor-overview-simulation-and-sample-telemetry.md [Preview]",
+              "RelativeToolTip": "..\\..\\..\\.copilot\\plans\\plan-sensor-overview-simulation-and-sample-telemetry.md [Preview]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2026-08-20T11:13:42.109Z",
+              "EditorCaption": " [Preview]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
               "Title": "STATUS.md",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\STATUS.md",
               "RelativeDocumentMoniker": "STATUS.md",
@@ -157,7 +234,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 8,
               "Title": "INTEGRATION_COMPLETE.md",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\INTEGRATION_COMPLETE.md",
               "RelativeDocumentMoniker": "INTEGRATION_COMPLETE.md",
@@ -165,12 +242,11 @@
               "RelativeToolTip": "INTEGRATION_COMPLETE.md",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
-              "WhenOpened": "2026-08-16T13:55:44.801Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-08-16T13:55:44.801Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 33,
               "Title": "QUICK_START.md",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\QUICK_START.md",
               "RelativeDocumentMoniker": "QUICK_START.md",
@@ -182,7 +258,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 32,
               "Title": "API_INTEGRATION_REFERENCE.md",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\API_INTEGRATION_REFERENCE.md",
               "RelativeDocumentMoniker": "API_INTEGRATION_REFERENCE.md",
@@ -194,7 +270,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 31,
               "Title": "INTEGRATION_SUMMARY.md",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\INTEGRATION_SUMMARY.md",
               "RelativeDocumentMoniker": "INTEGRATION_SUMMARY.md",
@@ -206,7 +282,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 30,
               "Title": "YOU_ARE_READY.md",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\YOU_ARE_READY.md",
               "RelativeDocumentMoniker": "YOU_ARE_READY.md",
@@ -218,7 +294,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 29,
               "Title": "FINAL_REPORT.md",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\FINAL_REPORT.md",
               "RelativeDocumentMoniker": "FINAL_REPORT.md",
@@ -230,7 +306,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 28,
               "Title": "README.md",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\README.md",
               "RelativeDocumentMoniker": "README.md",
@@ -242,7 +318,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 27,
               "Title": "START_HERE.md",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\START_HERE.md",
               "RelativeDocumentMoniker": "START_HERE.md",
@@ -254,7 +330,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 26,
               "Title": "FILE_STRUCTURE.md",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\FILE_STRUCTURE.md",
               "RelativeDocumentMoniker": "FILE_STRUCTURE.md",
@@ -266,7 +342,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 25,
               "Title": "PROJECT_COMPLETE.md",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\PROJECT_COMPLETE.md",
               "RelativeDocumentMoniker": "PROJECT_COMPLETE.md",
@@ -278,7 +354,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 24,
               "Title": "QUICK_REFERENCE.md",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\QUICK_REFERENCE.md",
               "RelativeDocumentMoniker": "QUICK_REFERENCE.md",
@@ -290,7 +366,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 23,
               "Title": "IMPLEMENTATION_SUMMARY.md",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\IMPLEMENTATION_SUMMARY.md",
               "RelativeDocumentMoniker": "IMPLEMENTATION_SUMMARY.md",
@@ -302,19 +378,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 3,
               "Title": ".env.example",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\.env.example",
               "RelativeDocumentMoniker": ".env.example",
               "ToolTip": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\.env.example",
               "RelativeToolTip": ".env.example",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2026-08-10T13:11:10.32Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "SETUP_GUIDE.md",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\SETUP_GUIDE.md",
               "RelativeDocumentMoniker": "SETUP_GUIDE.md",
@@ -326,7 +402,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "SMART_X_README.md",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\SMART_X_README.md",
               "RelativeDocumentMoniker": "SMART_X_README.md",
@@ -338,7 +414,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 20,
               "Title": "index.js",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\components\\index.js",
               "RelativeDocumentMoniker": "src\\components\\index.js",
@@ -350,7 +426,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "App.css",
               "DocumentMoniker": "C:\\Users\\Shuayb\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\523480483\\App.css",
               "RelativeDocumentMoniker": "..\\..\\..\\AppData\\Local\\Temp\\CopilotBaseline\\Deleted\\523480483\\App.css",
@@ -362,19 +438,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 1,
               "Title": "App.jsx",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\App.jsx",
               "RelativeDocumentMoniker": "src\\App.jsx",
               "ToolTip": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\App.jsx",
               "RelativeToolTip": "src\\App.jsx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAxwAYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
               "WhenOpened": "2026-08-10T13:05:30.985Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 18,
               "Title": "ComingSoonPage.jsx",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\pages\\ComingSoonPage.jsx",
               "RelativeDocumentMoniker": "src\\pages\\ComingSoonPage.jsx",
@@ -386,7 +462,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 17,
               "Title": "Tabs.jsx",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\components\\Tabs.jsx",
               "RelativeDocumentMoniker": "src\\components\\Tabs.jsx",
@@ -398,31 +474,31 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 5,
               "Title": "DashboardPage.jsx",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\pages\\DashboardPage.jsx",
               "RelativeDocumentMoniker": "src\\pages\\DashboardPage.jsx",
               "ToolTip": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\pages\\DashboardPage.jsx",
               "RelativeToolTip": "src\\pages\\DashboardPage.jsx",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
               "WhenOpened": "2026-08-10T13:05:04.309Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 7,
               "Title": "TelemetryDashboard.jsx",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\components\\TelemetryDashboard.jsx",
               "RelativeDocumentMoniker": "src\\components\\TelemetryDashboard.jsx",
               "ToolTip": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\components\\TelemetryDashboard.jsx",
               "RelativeToolTip": "src\\components\\TelemetryDashboard.jsx",
-              "ViewState": "AgIAAAAAAAAAAAAAAABBwEQBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGYCAAAAAAAAAIBJwOwBAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003663|",
               "WhenOpened": "2026-08-10T13:04:53.626Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "SensorRegistrationForm.jsx",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\components\\SensorRegistrationForm.jsx",
               "RelativeDocumentMoniker": "src\\components\\SensorRegistrationForm.jsx",
@@ -434,7 +510,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "FileUpload.jsx",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\components\\FileUpload.jsx",
               "RelativeDocumentMoniker": "src\\components\\FileUpload.jsx",
@@ -446,7 +522,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 14,
               "Title": "Sidebar.jsx",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\components\\Sidebar.jsx",
               "RelativeDocumentMoniker": "src\\components\\Sidebar.jsx",
@@ -458,7 +534,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 13,
               "Title": "Toast.jsx",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\components\\Toast.jsx",
               "RelativeDocumentMoniker": "src\\components\\Toast.jsx",
@@ -476,25 +552,25 @@
               "RelativeDocumentMoniker": "src\\hooks\\index.js",
               "ToolTip": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\hooks\\index.js",
               "RelativeToolTip": "src\\hooks\\index.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAMIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAMIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2026-08-10T13:02:58.548Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
               "Title": "apiClient.js",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\services\\apiClient.js",
               "RelativeDocumentMoniker": "src\\services\\apiClient.js",
               "ToolTip": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\services\\apiClient.js",
               "RelativeToolTip": "src\\services\\apiClient.js",
-              "ViewState": "AgIAAA8AAAAAAAAAAIBJwOoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAABIAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2026-08-10T13:02:44.723Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 12,
               "Title": "index.css",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\src\\index.css",
               "RelativeDocumentMoniker": "src\\index.css",
@@ -506,7 +582,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 11,
               "Title": "postcss.config.js",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\postcss.config.js",
               "RelativeDocumentMoniker": "postcss.config.js",
@@ -518,7 +594,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 10,
               "Title": "tailwind.config.js",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\tailwind.config.js",
               "RelativeDocumentMoniker": "tailwind.config.js",
@@ -530,7 +606,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 9,
               "Title": "package.json",
               "DocumentMoniker": "C:\\Users\\Shuayb\\source\\repos\\SmartIotFrontEndApp\\package.json",
               "RelativeDocumentMoniker": "package.json",
@@ -539,26 +615,6 @@
               "ViewState": "AgIAAAMAAAAAAAAAAAD4vw0AAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2026-08-10T13:01:39.777Z"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{0174dea2-fdbe-4ef1-8f99-c0beae78880f}"
             }
           ]
         }
