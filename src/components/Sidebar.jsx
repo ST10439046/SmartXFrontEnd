@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Radio, Activity, Zap, Lock, Menu, X } from 'lucide-react';
+import { Radio, Activity, Zap, Lock, Menu, X, Database } from 'lucide-react';
 import { useState } from 'react';
 
 const Sidebar = () => {
@@ -15,6 +15,14 @@ const Sidebar = () => {
       path: '/dashboard',
       enabled: true,
       description: 'Ingest and visualize sensor telemetry data',
+    },
+    {
+      id: 'sensors',
+      name: 'Sensor Management',
+      icon: Database,
+      path: '/sensors',
+      enabled: true,
+      description: 'Create, read, update, and delete sensors',
     },
     {
       id: 'commands',

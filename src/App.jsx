@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar';
 import { ToastContainer } from './components/Toast';
 import { useNotification } from './hooks';
 import DashboardPage from './pages/DashboardPage';
+import SensorCRUDPage from './pages/SensorCRUDPage';
 import SensorDetailsPage from './pages/SensorDetailsPage';
 import ComingSoonPage from './pages/ComingSoonPage';
 
@@ -21,6 +22,7 @@ function App() {
             <Routes>
               <Route path="/" element={<DashboardPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/sensors" element={<SensorCRUDPage />} />
               <Route path="/sensor/:macaddress" element={<SensorDetailsPage />} />
               <Route
                 path="/commands"
