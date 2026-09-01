@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="smartiotfrontendapp.esproj">
+    <Build />
+    <Deploy />
+  </Project>
+</Solution>
