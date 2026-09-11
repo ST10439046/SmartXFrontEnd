@@ -15,6 +15,13 @@ apiClient.interceptors.request.use(
   (config) => {
     // Add any auth tokens if needed
     console.log('API Request:', config.method?.toUpperCase(), config.url);
+
+    // For FormData, don't set Content-Type - let the browser set it with the boundary
+    if (config.data instanceof FormData) {
+      delete config.headers['Content-Type'];
+      console.log('FormData detected - removing Content-Type header to allow browser to set it');
+    }
+
     return config;
   },
   (error) => Promise.reject(error)
@@ -128,7 +135,30 @@ export const attachmentApi = {
     return apiClient.get(`/api/attachment/${id}`);
   },
 
-  // Create new attachment (for file uploads)
+  // Get attachments for a specific sensor
+  getAttachmentsBySensor: async (sensorMac) => {
+    return apiClient.get(`/api/attachment/sensor/${sensorMac}`);
+  },
+
+  // Upload file as attachment (correct endpoint with correct field names)
+  uploadFile: async (file, sensorMac, fileType = 'document') => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('sensorMac', sensorMac); // Backend expects 'sensorMac' NOT 'sensorMacAddress'
+    formData.append('fileType', fileType);
+
+    console.log('AttachmentApi.uploadFile called with:', {
+      fileName: file.name,
+      fileSize: file.size,
+      sensorMac,
+      fileType,
+    });
+
+    // Do NOT set Content-Type header for FormData - let axios/browser set it with boundary
+    return apiClient.post('/api/attachment/upload', formData);
+  },
+
+  // Create new attachment record (without file upload)
   createAttachment: async (attachmentData) => {
     return apiClient.post('/api/attachment', attachmentData);
   },
@@ -143,25 +173,16 @@ export const attachmentApi = {
     return apiClient.delete(`/api/attachment/${id}`);
   },
 
-  // Upload file as attachment
-  uploadFile: async (file, sensorMacAddress, fileType = 'config') => {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('sensorMacAddress', sensorMacAddress);
-    formData.append('fileType', fileType);
-    formData.append('uploadDate', new Date().toISOString());
-
-    return apiClient.post('/api/attachment', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-      onUploadProgress: (progressEvent) => {
-        const percentCompleted = Math.round(
-          (progressEvent.loaded * 100) / progressEvent.total
-        );
-        return percentCompleted;
-      },
+  // Download attachment
+  downloadAttachment: async (id) => {
+    return apiClient.get(`/api/attachment/download/${id}`, {
+      responseType: 'blob',
     });
+  },
+
+  // View attachment (text-based files only)
+  viewAttachment: async (id) => {
+    return apiClient.get(`/api/attachment/view/${id}`);
   },
 };
 

@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Loader, AlertCircle, RefreshCw } from 'lucide-react';
-import { sensorApi, telemetryApi, alertApi, commandApi } from '../services/apiClient';
+import { ArrowLeft, Loader, AlertCircle, RefreshCw, Download, Trash2 } from 'lucide-react';
+import { sensorApi, telemetryApi, alertApi, commandApi, attachmentApi } from '../services/apiClient';
 import { useNotification } from '../hooks';
+import AttachmentUpload from '../components/AttachmentUpload';
 
 const SensorDetailsPage = () => {
     const { macaddress } = useParams();
@@ -13,6 +14,7 @@ const SensorDetailsPage = () => {
     const [telemetry, setTelemetry] = useState([]);
     const [alerts, setAlerts] = useState([]);
     const [commands, setCommands] = useState([]);
+    const [attachments, setAttachments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [refreshing, setRefreshing] = useState(false);
@@ -79,6 +81,19 @@ const SensorDetailsPage = () => {
                 console.warn('Could not fetch commands:', commandsError);
                 setCommands([]);
             }
+
+            // Fetch all attachments and filter by sensor MAC
+            try {
+                const attachmentsResponse = await attachmentApi.getAttachmentsBySensor(macaddress);
+                const attachmentsArray = Array.isArray(attachmentsResponse.data)
+                    ? attachmentsResponse.data
+                    : [];
+
+                setAttachments(attachmentsArray);
+            } catch (attachmentsError) {
+                console.warn('Could not fetch attachments:', attachmentsError);
+                setAttachments([]);
+            }
         } catch (err) {
             console.error('Error fetching sensor details:', err);
             setError('Failed to load sensor details');
@@ -89,7 +104,10 @@ const SensorDetailsPage = () => {
     }, [macaddress, show]);
 
     useEffect(() => {
-        void fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        (async () => {
+            await fetchData();
+        })();
     }, [fetchData]);
 
     const handleRefresh = async () => {
@@ -97,6 +115,50 @@ const SensorDetailsPage = () => {
         await fetchData();
         setRefreshing(false);
         show('Data refreshed', 'success');
+    };
+
+    const handleDeleteAttachment = async (attachmentId) => {
+        if (!window.confirm('Are you sure you want to delete this attachment?')) {
+            return;
+        }
+
+        try {
+            await attachmentApi.deleteAttachment(attachmentId);
+            show('Attachment deleted successfully', 'success');
+            await fetchData();
+        } catch (err) {
+            console.error('Error deleting attachment:', err);
+            show('Failed to delete attachment', 'error');
+        }
+    };
+
+    const handleDownloadAttachment = async (attachmentId) => {
+        try {
+            const response = await attachmentApi.downloadAttachment(attachmentId);
+            // Get the attachment details to get the filename
+            const attachment = attachments.find((a) => a.attachmentId === attachmentId);
+            const filename = attachment?.fileName || 'download';
+
+            // Create a blob URL and trigger download
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', filename);
+            document.body.appendChild(link);
+            link.click();
+            link.parentNode.removeChild(link);
+            window.URL.revokeObjectURL(url);
+
+            show('File downloaded successfully', 'success');
+        } catch (err) {
+            console.error('Error downloading attachment:', err);
+            show('Failed to download attachment', 'error');
+        }
+    };
+
+    const handleAttachmentUploadComplete = async () => {
+        await fetchData();
+        show('Attachment uploaded successfully', 'success');
     };
 
     if (loading) {
@@ -339,6 +401,71 @@ const SensorDetailsPage = () => {
                                 No command history
                             </div>
                         )}
+                    </div>
+
+                    {/* Attachments */}
+                    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+                            Attachments ({attachments.length})
+                        </h3>
+
+                        {attachments.length > 0 ? (
+                            <div className="space-y-3 mb-6">
+                                {attachments.map((attachment, idx) => (
+                                    <div
+                                        key={idx}
+                                        className="border border-gray-200 dark:border-gray-700 rounded p-3 text-sm hover:bg-gray-50 dark:hover:bg-gray-700/50 transition"
+                                    >
+                                        <div className="flex items-center justify-between mb-2">
+                                            <div className="flex-1 min-w-0">
+                                                <p className="font-medium text-gray-900 dark:text-white truncate">
+                                                    {attachment.fileName}
+                                                </p>
+                                                <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                                                    Type: <span className="font-medium capitalize">{attachment.fileType || 'unknown'}</span>
+                                                </p>
+                                            </div>
+
+                                            <div className="flex items-center gap-2 flex-shrink-0 ml-3">
+                                                <button
+                                                    onClick={() => handleDownloadAttachment(attachment.attachmentId)}
+                                                    className="p-1.5 hover:bg-gray-200 dark:hover:bg-gray-600 rounded transition text-gray-600 dark:text-gray-400"
+                                                    title="Download file"
+                                                >
+                                                    <Download size={16} />
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDeleteAttachment(attachment.attachmentId)}
+                                                    className="p-1.5 hover:bg-danger-100 dark:hover:bg-danger-900/30 rounded transition text-danger-600 dark:text-danger-400"
+                                                    title="Delete attachment"
+                                                >
+                                                    <Trash2 size={16} />
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                                            Uploaded: {attachment.uploadedAt ? new Date(attachment.uploadedAt).toLocaleString() : 'Unknown'}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="text-center py-4 text-gray-500 dark:text-gray-400 mb-6">
+                                No attachments yet
+                            </div>
+                        )}
+
+                        {/* Upload Section */}
+                        <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+                            <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+                                Upload New Attachment
+                            </h4>
+                            <AttachmentUpload
+                                sensorMac={macaddress}
+                                onUploadSuccess={handleAttachmentUploadComplete}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

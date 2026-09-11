@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SensorRegistrationForm from '../components/SensorRegistrationForm';
 import TelemetryDashboard from '../components/TelemetryDashboard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/Tabs';
